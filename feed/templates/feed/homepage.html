@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title%}Home Page{% endblock %}
+
+{% comment %} {% block body%}
+    {% if posts %}
+        <div id="posts-container">
+            {% for post in posts %}            
+                {% include "includes/post.html" with post=post show_detail_link=True %}            
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1>Nothing in posts. Be the first one to post something.</h1>
+    {% endif %}
+{% endblock body %} {% endcomment %}
+
+{% block body%}
+    <div id="posts-container">
+        <div class="relative">
+            {% if posts_to_follow %}
+            <div class="sticky top-0 md:top-0 bg-gray-300 rounded-md text-black text-md font-bold text-left pl-2 py-2 opacity-.75 w-full">Posts To Follow</div>
+                <div>
+                {% for post_to_follow in posts_to_follow %}            
+                    {% include "includes/post.html" with post=post_to_follow show_detail_link=True %}            
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="relative">       
+            {% if posts %}
+            <div class="sticky top-0 md:top-0 bg-gray-300 rounded-md text-black text-md font-bold text-left pl-2 py-2 opacity-.75 w-full">{%if posts_to_follow%}Other Posts{%else%}Current Posts{%endif%}</div>
+                <div>
+                {% for post in posts %}            
+                    {% include "includes/post.html" with post=post show_detail_link=True %}            
+                {% endfor %}
+                </div>
+            {% endif %}                    
+        </div>
+        <div>
+            {% if not posts and not posts_to_follow %}
+                <h1 class="text-lg font-bold">Nothing in posts. Be the first one to post something.</h1>
+            {% endif %}   
+        </div>
+    </div>
+{% endblock body %}

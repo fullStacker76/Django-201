@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}Account Update Page{% endblock title %}
+
+{% block body %}
+
+<!-- component -->
+    <div class="flex flex-col md:flex-row max-h-4xl px-10 my-4 py-6 bg-white rounded-lg shadow-md w-full">
+        <div class="fluid-container justify-between items-center">
+            {% thumbnail user.profile.image "373x373" crop="center" as im %}                               
+                <img class="p-3 rounded-full md:rounded-3xl" src="{{ im.url }}" width="{{ im.x }}" height="{{ im.y }}" alt="Avatar">            
+            {% endthumbnail %}
+        </div>
+        <div class="justify-left items-center mt-4 pl-3">
+            <p class="text-lg">User Profile: <strong>{{request.user.username }}</strong></p>           
+            <form action="" method="post" enctype="multipart/form-data" class="form-validtion">
+                {% csrf_token %}
+                <div class="my-2">
+                    <label for="id_user-username" class="py-2 block text-sm/6 font-medium text-gray-900">Username</label>
+                    <div class="flex items-center rounded-md bg-white pl-3 outline-black">                       
+                        <input value="{{user.username}}" type="text" name="user-username" id="id_user-username" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="User Name" required>
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    <label for="id_user-email" class="py-2 block text-sm/6 font-medium text-gray-900">Email</label>
+                    <div class="flex items-center rounded-md bg-white pl-3 outline-black">                        
+                        <input value="{{user.email}}" type="email" name="user-email" id="id_user-email" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    <label for="id_user-first_name" class="py-2 block text-sm/6 font-medium text-gray-900">First Name</label>
+                    <div class="flex items-center rounded-md bg-white pl-3 outline-black">                        
+                        <input value="{{user.first_name}}" type="text" name="user-first_name" id="id-first_name" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="First Name">
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    <label for="id_user-last_name" class="py-2 block text-sm/6 font-medium text-gray-900">Last Name</label>
+                    <div class="flex items-center rounded-md bg-white pl-3 outline-black">                        
+                        <input value="{{user.last_name}}" type="text" name="user-last_name" id="id_user-last_name" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" placeholder="Last Name">
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    <label for="photo" class="block text-sm/6 font-medium text-gray-900">Photo</label>
+                        <div class="mt-2 flex items-center gap-x-3">                        
+                        <input type="file" name="profile-image" id="id_profile-image" class="rounded-md bg-white outline-black px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50">                        
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded m-2">Update</button>                           
+                    <a type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded m-2" href="{% url 'profiles:delete' request.user.id %}">Delete</a>
+                    <a type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded m-2" href="/">Cancel</a>
+                </div>
+            </form>
+            <div class="flex justify-center py-3">
+                <p>                     
+                    <a class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="{%url 'account_change_password' %}">Change Password</a>
+                </p>
+            </div>
+        </div>   
+    </div> 
+{% endblock body %}

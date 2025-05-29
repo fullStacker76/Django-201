@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Confirmation{% endblock title %}
+
+
+{% block body %}
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <p class="text-lg text-center"> Are you sure you want to delete <strong>{{ user.username }}</strong> user profile? </p>            
+            <div class="flex justify-center mx-auto">
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded m-2">Delete</button>                           
+                <a type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded m-2" href="{% url 'profiles:edit' request.user.id %}">Cancel</a>
+            </div>
+        </form
+    </div>
+{% endblock body %}
